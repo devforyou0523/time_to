@@ -13,6 +13,7 @@ class SleepTimerPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        //main_title
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -33,11 +34,13 @@ class SleepTimerPage extends StatelessWidget {
             ),
           ],
         ),
+        //main_title_image
         svgWithShadow(
           assetName: "assets/images/moon.svg",
           height: AppFonts.title(context) * 12,
           width: AppFonts.title(context) * 12,
         ),
+        //sleep_time_continer_title
         Container(
           margin: EdgeInsets.only(bottom: 10),
           child: Padding(
@@ -61,6 +64,7 @@ class SleepTimerPage extends StatelessWidget {
             ),
           ),
         ),
+        //sleep_time_continer
         Container(
           width: double.infinity,
           height: AppFonts.title(context) * 4,
@@ -79,21 +83,91 @@ class SleepTimerPage extends StatelessWidget {
                   Text(
                     "시 ",
                     style: TextStyle(
-                      fontSize: AppFonts.title(context) * 1.3,
+                      fontSize: AppFonts.title(context) * 1.4,
                       fontWeight: FontWeight.w200,
                     ),
                   ),
-                  Text(
-                    "30",
-                    style: TextStyle(
-                      fontSize: AppFonts.title(context) * 1.3,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  UnderlinedTextWithSpacing(text: "30"),
                   Text(
                     "분",
                     style: TextStyle(
-                      fontSize: AppFonts.title(context) * 1.3,
+                      fontSize: AppFonts.title(context) * 1.4,
+                      fontWeight: FontWeight.w200,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: AppFonts.body(context) * 0.8,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              '또는',
+              style: TextStyle(
+                fontSize: AppFonts.body(context)*0.8,
+                fontWeight: FontWeight.w200,
+              ),
+            ),
+          ),
+        ),
+        //wake_time_continer_title
+        Container(
+          margin: EdgeInsets.only(bottom: 10),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '내가 일어날 시간은?',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: AppFonts.body(context),
+                  ),
+                ),
+                SvgPicture.asset(
+                  "assets/images/icons/arrow_1.svg",
+                  width: AppFonts.body(context),
+                  height: AppFonts.body(context),
+                ),
+              ],
+            ),
+          ),
+        ),
+        //wake_time_continer
+        Container(
+          width: double.infinity,
+          height: AppFonts.title(context) * 4,
+          padding: EdgeInsets.all(AppFonts.title(context)),
+          decoration: BoxDecoration(
+            color: AppColors.containerPrimary,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("오전", style: TextStyle(fontSize: AppFonts.title(context))),
+              Row(
+                children: [
+                  UnderlinedTextWithSpacing(text: "09"),
+                  Text(
+                    "시 ",
+                    style: TextStyle(
+                      fontSize: AppFonts.title(context) * 1.4,
+                      fontWeight: FontWeight.w200,
+                    ),
+                  ),
+                  UnderlinedTextWithSpacing(text: "00"),
+                  Text(
+                    "분",
+                    style: TextStyle(
+                      fontSize: AppFonts.title(context) * 1.4,
                       fontWeight: FontWeight.w200,
                     ),
                   ),
@@ -122,7 +196,7 @@ class UnderlinedTextWithSpacing extends StatelessWidget {
           style: TextStyle(
             fontSize: AppFonts.title(context) * 1.4,
             color: AppColors.textPrimary,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
           ),
         ),
         Positioned(
