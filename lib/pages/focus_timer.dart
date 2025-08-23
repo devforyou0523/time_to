@@ -12,10 +12,10 @@ class FocusTimerPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           svgWithShadow(assetName: "assets/images/focus.svg"),
-          SizedBox(height: 16),
-          Text('집중 타이머', style: TextStyle(fontSize: 24)),
-          SizedBox(height: 8),
-          Text('여기에 집중 타이머 UI를 구현하세요.'),
+          const SizedBox(height: 16),
+          const Text('집중 타이머', style: TextStyle(fontSize: 24)),
+          const SizedBox(height: 8),
+          const Text('여기에 집중 타이머 UI를 구현하세요.'),
         ],
       ),
     );

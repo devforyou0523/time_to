@@ -12,7 +12,7 @@ Widget svgWithShadow({
       alignment: Alignment.center,
       children: [
         Transform.translate(
-          offset: Offset(4, 4),
+          offset: const Offset(4, 4),
           child: ImageFiltered(
             imageFilter: ui.ImageFilter.blur(
               sigmaX: 10,

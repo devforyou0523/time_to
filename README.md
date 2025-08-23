@@ -2,11 +2,40 @@
 2025년 여름방학 스터디의 메인 프로젝트인 다양한 타이머 기능을 담은 앱입니다. Flutter 프레임워크를 이용하여 개발한 앱으로, 안드로이드 운영체제를 타겟팅하여 개발한 앱입니다.
 
 ## 프로젝트 소개
-이 프로젝트는 2025년 여름방학에 진행한 스터디에서 한 달간 개발한 메인 프로젝트입니다. '시간'을 주제로 하여 다양한 아이디어를 담아 만든 앱으로, 수면 타이머, 집중 타이머, 명상 타이머의 기능을 담고 있습니다.
+이 프로젝트는 2025년 여름방학에 진행한 스터디에서 한 달간 개발한 메인 프로젝트입니다. '시간'을 주제로 하여 다양한 아이디어를 담아 만든 앱으로, 수면 타이머, 집중 타이머, 명상 타이머 기능을 담고 있습니다.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 개발 기간
+- 프로젝트 구상 : 2025/08/06(수) ~ 2025/08/14(목) 약 8일
+- 디자인 기간 : 2025/08/14(목) ~ 2025/08/22(금) 약 8일
+- 1차 개발 기간 : 2025/08/22(금) ~ 2025/08/27(수) 약 5일
+- 최종 점검 기간 : 2025/08/27(수) ~ 2025/08/31(월) 약 4일
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 개발자 소개
+- **뎁포유** : UX/UI 디자인, 앱 전체 개발 담당
+
+## 개발 환경
+- **IDE** : Android Studio Narwhal Feature Drop | 2025.1.2 Patch 1
+- **Framework** : Flutter 3.32.1 Stable
+
+## 기능 소개
+- 수면 타이머:
+  - 사용자의 예상 취침 시간 또는 예상 기상 시간을 입력받습니다.
+  - 입력 받은 시간을 기반으로 최적의 수면 사이클이라고 알려진 90분 사이클을 반복하여 적정 취침시간, 기상시간을 추천해줍니다.
+
+- 집중 타이머:
+  - 25분 집중과 5분 휴식이 한 사이클로 구성되어 있는 '뽀모도로 타이머' 방식을 사용하였습니다.
+  - 사용자가 자유롭게 사이클을 설정할 수 있고, 집중 시간 현황과 휴식 시간 현황을 타이머로 제공합니다.
+  - 방해금지 모드 설정을 통해 작업에 더욱 집중할 수 있습니다.
+
+- 명상 타이머:
+  - 1분, 5분, 10분, 30분 으로 나누어진 명상 시간을 사용자가 선택할 수 있습니다.
+  - 명상에서 사용하는 여러 호흡 중 하나인 4초간 숨을 들이마시고, 7초간 숨을 참고, 8초간 숨을 내쉬는 4-7-8 호흡법을 이용하여 편안함을 느끼게 해줍니다.
+  - 집중 타이머와 같이, 방해금지 모드 설정을 통해 명상에 더욱 집중할 수 있습니다.
+
+## 디자인 소개
+- 디자인 툴 : Figma
+- 디자인 완성본 링크 : <https://www.figma.com/design/frypp04FKHvyNBeYIOxvUP/timer_app?node-id=0-1&t=OXqz8tL05ppFx7fK-1>
+- 디자인 프로토타입 링크 : <https://www.figma.com/proto/frypp04FKHvyNBeYIOxvUP/timer_app?node-id=0-1&t=OXqz8tL05ppFx7fK-1>
+
+## 개발자 연락처
+- **뎁포유**: devforyou0523@gmail.com

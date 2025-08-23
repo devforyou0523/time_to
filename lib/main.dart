@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'theme/app_colors.dart';
 import 'theme/app_theme.dart';
-import 'pages/sleep_timer.dart';
+import 'pages/sleep_timer/sleep_timer_main.dart';
 import 'pages/focus_timer.dart';
 import 'pages/relax_timer.dart';
 
@@ -36,15 +37,29 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // 0: Sleep, 1: Focus, 2: Relax
   int _selectedIndex = 0;
+  final PageController _pageController = PageController();
 
+  // 페이지 리스트
   final List<Widget> _pages = const [
     SleepTimerPage(),
     FocusTimerPage(),
     RelaxTimerPage(),
   ];
 
+  //스크린 전환 함수
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.linear,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,11 +73,17 @@ class _MyHomePageState extends State<MyHomePage> {
     final double topPadding = MediaQuery.of(context).padding.top + extraTop;
 
     return Scaffold(
-      backgroundColor: Color(0xff121212),
+      backgroundColor: const Color(0xff121212),
       extendBody: true,
       body: Padding(
-        padding: EdgeInsets.only(top: topPadding, left: 20, right: 20),
-        child: IndexedStack(index: _selectedIndex, children: _pages),
+        padding: EdgeInsets.only(top: topPadding),
+        child: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() => _selectedIndex = index);
+          },
+          children: _pages,
+        ),
       ),
       bottomNavigationBar: SafeArea(
         top: false,
@@ -79,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: navBarHeight,
               width: MediaQuery.of(context).size.width * 0.86,
               decoration: BoxDecoration(
-                color: Colors.grey.shade900,
+                color: AppColors.navBar,
                 borderRadius: BorderRadius.circular(40.0),
                 boxShadow: [
                   BoxShadow(
@@ -130,6 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // 네비게이션 바 아이템 위젯
   Widget _buildNavItem({
     required String svgPath,
     required int index,
@@ -174,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 4.0,
                     width: selected ? 30.0 : 0.0,
                     decoration: BoxDecoration(
-                      color: Color(0xff9A9A9A),
+                      color: const Color(0xff9A9A9A),
                       borderRadius: BorderRadius.circular(2.0),
                     ),
                   ),
