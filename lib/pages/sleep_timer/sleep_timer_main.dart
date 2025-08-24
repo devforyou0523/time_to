@@ -1,8 +1,8 @@
 import 'dart:ui' show ImageFilter;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:time_to/theme/app_colors.dart';
 
+import '../../theme/app_colors.dart';
 import '../../widgets/svg_with_shadow.dart';
 import '../../theme/app_fonts.dart';
 import 'sleep_timer_result.dart';
@@ -45,10 +45,13 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
   // 상태 변수
   TimeSelection _sleepTime = TimeSelection(period: "오후", hour: 10, minute: 30);
   TimeSelection _wakeTime = TimeSelection(period: "오전", hour: 9, minute: 0);
+
   final _sleepTimeKeys = TimeWidgetKeys();
   final _wakeTimeKeys = TimeWidgetKeys();
 
   final PageController _pageController = PageController();
+
+  ResultType? _selectedType;
 
   @override
   void dispose() {
@@ -364,29 +367,23 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
   Widget build(BuildContext context) {
     return PageView(
       controller: _pageController,
-      // 사용자가 직접 스와이프하는 것을 방지
       physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
-        // --- 페이지 0: 시간 선택 화면 ---
         _buildTimerSelectionView(),
-
-        // --- 페이지 1: 결과 확인 화면 ---
-        ResultView(
-          sleepTime: _sleepTime,
-          wakeTime: _wakeTime,
-          onBack: () {
-            // 결과 화면에서 '돌아가기'를 누르면 0번 페이지로 이동
-            _pageController.animateToPage(
-              0,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-          },
-        ),
+        if (_selectedType != null)
+          ResultView(
+            sleepTime: _sleepTime,
+            wakeTime: _wakeTime,
+            type: _selectedType!, // ✅ Sleep/Wake 구분
+            onBack: () {
+              _pageController.animateToPage(
+                0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+          ),
       ],
-      onPageChanged: (index) {
-        setState(() {});
-      },
     );
   }
 
@@ -423,15 +420,18 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
             width: AppFonts.title(context) * 12,
           ),
 
-          // ✨ MODIFIED: 탭하면 1번 페이지(결과 화면)로 이동
           GestureDetector(
-            onTap: () => _pageController.animateToPage(
-              1,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            ),
+            onTap: () {
+              setState(() => _selectedType = ResultType.sleep);
+              _pageController.animateToPage(
+                1,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
             child: const _TimeSectionTitle(title: '내가 잠에 들 시간은?'),
           ),
+
           _TimeDisplayCard(
             time: _sleepTime,
             keys: _sleepTimeKeys,
@@ -456,11 +456,14 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
           ),
 
           GestureDetector(
-            onTap: () => _pageController.animateToPage(
-              1,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            ),
+            onTap: () {
+              setState(() => _selectedType = ResultType.wake);
+              _pageController.animateToPage(
+                1,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
             child: const _TimeSectionTitle(title: '내가 일어날 시간은?'),
           ),
           _TimeDisplayCard(
