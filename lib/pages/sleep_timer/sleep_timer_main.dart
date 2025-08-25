@@ -362,31 +362,6 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
     );
   }
 
-  // 메인 위젯 빌드 함수
-  @override
-  Widget build(BuildContext context) {
-    return PageView(
-      controller: _pageController,
-      physics: const NeverScrollableScrollPhysics(),
-      children: <Widget>[
-        _buildTimerSelectionView(),
-        if (_selectedType != null)
-          ResultView(
-            sleepTime: _sleepTime,
-            wakeTime: _wakeTime,
-            type: _selectedType!, // ✅ Sleep/Wake 구분
-            onBack: () {
-              _pageController.animateToPage(
-                0,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
-          ),
-      ],
-    );
-  }
-
   // 시간 선택 화면 빌드 함수
   Widget _buildTimerSelectionView() {
     return Padding(
@@ -475,9 +450,34 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
       ),
     );
   }
+
+  // 메인 위젯 빌드 함수
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      controller: _pageController,
+      physics: const NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        _buildTimerSelectionView(),
+        if (_selectedType != null)
+          ResultView(
+            sleepTime: _sleepTime,
+            wakeTime: _wakeTime,
+            type: _selectedType!, // ✅ Sleep/Wake 구분
+            onBack: () {
+              _pageController.animateToPage(
+                0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+          ),
+      ],
+    );
+  }
 }
 
-// 섹션 타이틀 위젯
+// 섹션 타이틀 위젯 클래스
 class _TimeSectionTitle extends StatelessWidget {
   final String title;
   const _TimeSectionTitle({required this.title});
@@ -509,7 +509,7 @@ class _TimeSectionTitle extends StatelessWidget {
   }
 }
 
-// 시간 표시 카드 위젯
+// 시간 표시 카드 위젯 클래스
 class _TimeDisplayCard extends StatelessWidget {
   final TimeSelection time;
   final TimeWidgetKeys keys;
@@ -576,7 +576,7 @@ class _TimeDisplayCard extends StatelessWidget {
   }
 }
 
-// 밑줄 텍스트 위젯
+// 밑줄 텍스트 위젯 클래스
 class UnderlinedTextWithSpacing extends StatelessWidget {
   final String text;
   const UnderlinedTextWithSpacing({super.key, required this.text});
@@ -597,8 +597,8 @@ class UnderlinedTextWithSpacing extends StatelessWidget {
         Positioned(
           left: 0,
           right: 0,
-          bottom: 0,
-          child: Container(height: 3, color: AppColors.textPrimary),
+          bottom: 3,
+          child: Container(height: 2, color: AppColors.textPrimary),
         ),
       ],
     );
