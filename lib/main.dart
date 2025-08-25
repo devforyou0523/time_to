@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'theme/app_colors.dart';
 import 'theme/app_theme.dart';
 import 'pages/sleep_timer/sleep_timer_main.dart';
-import 'pages/focus_timer.dart';
-import 'pages/relax_timer.dart';
+import 'pages/focus_timer/focus_timer_main.dart';
+import 'pages/relax_timer/relax_timer_main.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,15 +65,41 @@ class _PrecacheAndHomeState extends State<PrecacheAndHome> {
     'assets/images/rest.svg',
   ];
 
+  // 기존 함수를 이 코드로 완전히 교체해주세요.
+  Future<void> _precacheAllAssets() async {
+    // SVG assets
+    final svgFutures = _svgAssets.map((path) {
+      final loader = SvgAssetLoader(path);
+      // svg.cache 객체를 통해 직접 캐시에 저장합니다.
+      return svg.cache.putIfAbsent(
+        loader.cacheKey(null),
+        () => loader.loadBytes(null),
+      );
+    });
+
+    // 래스터 이미지(예: png/jpg)가 있으면 precacheImage 사용:
+    final rasterFutures = <Future<void>>[
+      // 예: precacheImage(const AssetImage('assets/images/heart.png'), context),
+    ];
+
+    // 모든 비동기 작업이 끝날 때까지 기다립니다.
+    await Future.wait([...svgFutures, ...rasterFutures]);
+  }
+
   @override
   void initState() {
     super.initState();
-    // 한 프레임 렌더 후, 잠깐 대기하면 SvgPicture가 내부적으로 파싱/캐시됨
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // 복잡한 SVG가 많으면 delay를 좀 늘리세요
-      await Future.delayed(const Duration(milliseconds: 120));
-      if (mounted) setState(() => _ready = true);
-    });
+    // initState에서 직접 호출할 수 있습니다.
+    _precacheAllAssets()
+        .then((_) {
+          if (!mounted) return;
+          setState(() => _ready = true);
+        })
+        .catchError((err, st) {
+          debugPrint('precache failed: $err');
+          if (!mounted) return;
+          setState(() => _ready = true); // 실패해도 계속 진행
+        });
   }
 
   @override

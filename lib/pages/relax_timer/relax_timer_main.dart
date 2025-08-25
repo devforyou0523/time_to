@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/svg_with_shadow.dart';
+import '../../widgets/svg_with_shadow.dart';
 
 class RelaxTimerPage extends StatelessWidget {
   const RelaxTimerPage({super.key});

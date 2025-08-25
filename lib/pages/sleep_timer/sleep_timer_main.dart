@@ -75,7 +75,7 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
               onTap: () => Navigator.of(buildContext).pop(),
               child: ClipRect(
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                  filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                   child: Container(
                     alignment: Alignment.center,
                     child: GestureDetector(
@@ -222,7 +222,7 @@ class _SleepTimerPageState extends State<SleepTimerPage> {
                       Navigator.of(dialogContext).pop();
                     },
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                      filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                       child: Container(color: Colors.transparent),
                     ),
                   ),
@@ -543,9 +543,13 @@ class _TimeDisplayCard extends StatelessWidget {
             ),
             Row(
               children: [
-                UnderlinedTextWithSpacing(
+                Text(
+                  time.hour.toString().padLeft(2, '0'),
                   key: keys.hourKey,
-                  text: time.hour.toString().padLeft(2, '0'),
+                  style: TextStyle(
+                    fontSize: AppFonts.title(context) * 1.4,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
                 Text(
                   "시 ",
@@ -555,9 +559,13 @@ class _TimeDisplayCard extends StatelessWidget {
                     fontWeight: FontWeight.w200,
                   ),
                 ),
-                UnderlinedTextWithSpacing(
+                Text(
+                  time.minute.toString().padLeft(2, '0'),
                   key: keys.minuteKey,
-                  text: time.minute.toString().padLeft(2, '0'),
+                  style: TextStyle(
+                    fontSize: AppFonts.title(context) * 1.4,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
                 Text(
                   "분",
@@ -572,35 +580,6 @@ class _TimeDisplayCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-// 밑줄 텍스트 위젯 클래스
-class UnderlinedTextWithSpacing extends StatelessWidget {
-  final String text;
-  const UnderlinedTextWithSpacing({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: <Widget>[
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: AppFonts.title(context) * 1.4,
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 3,
-          child: Container(height: 2, color: AppColors.textPrimary),
-        ),
-      ],
     );
   }
 }
